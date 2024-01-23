@@ -1,0 +1,15 @@
+
+<img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+
+<form action="/posts/<%= post.id %>?_method=put" method="post">
+
+    <textarea name="post" maxlength="300">
+
+        <%= post.post %>
+
+    </textarea>
+
+    <button>update</button>
+
+</form>
+

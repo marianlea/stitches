@@ -7,7 +7,11 @@
         <input type="text" name="profile_pic_url" value="<%= user.profile_pic_url %>">
     </p>
     <p>
-        <textarea name="description" placeholder="description" maxlength="140" aria-valuemax="<%= user.description %>"></textarea>
+        <textarea name="description" placeholder="description" maxlength="140">
+            
+            <%= user.description %>
+        
+        </textarea>
     </p>
     <p>
         <button>update</button>

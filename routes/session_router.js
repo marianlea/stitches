@@ -55,7 +55,7 @@ router.post('/login', (req, res) => {
 
             console.log('redirect to profile page');
             req.session.userId = result.rows[0].id
-            res.redirect(`/${username}`) 
+            res.redirect(`/${username}/feed`) 
 
         })
 
@@ -135,7 +135,6 @@ router.get('/:username/edit', ensureLoggedIn, (req, res) => {
 
 })
 
-
 router.put('/:username', ensureLoggedIn, (req, res) => {
 
     const username = req.params.username
@@ -162,28 +161,12 @@ router.put('/:username', ensureLoggedIn, (req, res) => {
     })
 })
 
-// router.get('/:username/posts', ensureLoggedIn, (req, res) => {
+router.get('/:username/feed', ensureLoggedIn, (req, res) => {
 
-//     const userId = req.session.userId
-//     const sql =    `
-//         SELECT * FROM posts
-//         WHERE user_id = $1;
-//     `
+    const username = req.params.username
 
-//     db.query(sql, [userId], (err, result) => {
-
-//         if (err) {
-//             console.log(err);
-//         }
-
-//         console.log(result.rows);
-//         let posts = result.rows
-        
-//         res.render('user/user', { posts: posts })
-
-//     })
-// })
-
+    res.render('index', { username: username })
+})
 
 router.delete('/logout', ensureLoggedIn, (req, res) => {
 

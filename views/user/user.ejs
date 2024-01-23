@@ -39,7 +39,10 @@
     <% for (let post of posts) { %> 
     
         <p>
-            <%= post.post %>
+            <a href="/posts/<%= post.id %>"><%= post.post %></a>
+            <form action="/posts/<%= post.id %>?_method=put">
+                <button>edit post</button>
+            </form>
         </p>
     
     <% } %>
