@@ -2,17 +2,18 @@ const express = require('express')
 const router = express.Router()
 const db = require('../db')
 const bcrypt = require('bcrypt')
+const ensureLoggedIn = require('../middlewares/ensure_logged_in')
 
 router.get('/login', (req, res) => {
 
-    let prompt = ''
-    res.render('login', { prompt: prompt })
+    let sessionPrompt = ''
+    res.render('login', { sessionPrompt: sessionPrompt })
 
 })
 
 router.post('/login', (req, res) => {
 
-    let prompt = ''
+    let sessionPrompt = ''
     const username = req.body.username
     
 
@@ -30,12 +31,13 @@ router.post('/login', (req, res) => {
 
         console.log(username);
         if (result.rowCount === 0) {
-            prompt = 'user not found'
-            res.render('login', { prompt: prompt })
+            sessionPrompt = 'user not found'
+            res.render('login', { sessionPrompt: sessionPrompt })
             return
         }
 
-        const plaintextPass = req.body.password
+        const plaintextPass = req
+        .body.password
         const hashedPass = result.rows[0].password_digest
 
         bcrypt.compare(plaintextPass, hashedPass, (err, isCorrect) => {
@@ -46,8 +48,8 @@ router.post('/login', (req, res) => {
             }
 
             if (!isCorrect) {
-                prompt = 'password does not match'
-                res.render('login', { prompt: prompt })
+                sessionPrompt = 'password does not match'
+                res.render('login', { sessionPrompt: sessionPrompt })
                 return
             }
 
@@ -61,9 +63,11 @@ router.post('/login', (req, res) => {
 
 })
 
-router.get('/:username', (req, res) => {
+router.get('/:username', ensureLoggedIn, (req, res) => {
 
     const username = req.params.username
+    let followerCount = null
+    let followingCount = null
     const sql = `
         SELECT * from users
         WHERE username = $1;
@@ -76,17 +80,117 @@ router.get('/:username', (req, res) => {
         }
 
         const user = result.rows[0]
-        if (!user.followers === null) {
-            user.followers = 0
+
+        if (user.followers === null) {
+            followerCount = 0
         }
 
-        if (!user.following === null) {
-            user.following = 0
+        if (user.following === null) {
+            followingCount = 0
         }
-        res.render('user/user', { user: user, userFollowers: user.followers, userFollowing: user.following} )
+
+        const sqlPosts = `
+            SELECT * FROM posts
+            WHERE user_id = $1;
+            `
+
+        db.query(sqlPosts, [ user.id ], (err, resultPosts) => {
+
+            if (err) {
+                console.log(err);
+                
+            }
+
+            const posts = resultPosts.rows
+            
+            res.render('user/user', { user: user, followerCount: followerCount, followingCount: followingCount, posts: posts } )
+
+        })
+
 
     })
 
 })
+
+router.get('/:username/edit', ensureLoggedIn, (req, res) => {
+
+    const username = req.params.username
+
+    const sql = `
+        SELECT * FROM users
+        WHERE username = $1;
+    `
+
+    db.query(sql, [username], (err, result) => {
+
+        if (err) {
+            console.log(err);
+        }
+
+        const user = result.rows[0]
+
+        res.render('user/user_edit', { user: user })
+
+    })
+
+})
+
+
+router.put('/:username', ensureLoggedIn, (req, res) => {
+
+    const username = req.params.username
+    const profilePicUrl = req.body.profile_pic_url
+    const description = req.body.description
+    const sql = `
+        UPDATE users
+        SET
+            profile_pic_url = $1,
+            description = $2
+        WHERE
+            username = $3;
+    `
+
+    db.query(sql, [profilePicUrl, description, username], (err, result) => {
+
+        if (err) {
+            console.log(err);
+        }
+
+        console.log('updated')
+        res.redirect(`/${username}/posts`)
+
+    })
+})
+
+// router.get('/:username/posts', ensureLoggedIn, (req, res) => {
+
+//     const userId = req.session.userId
+//     const sql =    `
+//         SELECT * FROM posts
+//         WHERE user_id = $1;
+//     `
+
+//     db.query(sql, [userId], (err, result) => {
+
+//         if (err) {
+//             console.log(err);
+//         }
+
+//         console.log(result.rows);
+//         let posts = result.rows
+        
+//         res.render('user/user', { posts: posts })
+
+//     })
+// })
+
+
+router.delete('/logout', ensureLoggedIn, (req, res) => {
+
+    req.session.userId = null
+    res.redirect('/')
+    
+})
+
 
 module.exports = router

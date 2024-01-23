@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 router.get('/user/new', (req, res) => {
 
     let prompt = ''
-    res.render('user/new_user', { prompt: prompt})
+    res.render('user/new', { prompt: prompt})
 
 })
 
@@ -16,6 +16,7 @@ router.post('/signup', (req, res) => {
     const username = req.body.username
     const email = req.body.email
     const plaintextPass = req.body.password
+    const defaultProfilePic = 'https://fakeimg.pl/200x200?text=profile_pic'
     
     const sql = `
         SELECT * FROM users
@@ -26,12 +27,14 @@ router.post('/signup', (req, res) => {
 
         if (err) {
             console.log(err);
+            return
         }
         
         if (result.rowCount > 0) {
 
             prompt = 'username or email is already taken'
-            res.render('user/new_user', { prompt: prompt })
+            res.render('user/new', { prompt: prompt })
+            return
 
         } else {
 
@@ -53,21 +56,25 @@ router.post('/signup', (req, res) => {
             
                     const sql = `
                         INSERT INTO users
-                        (username, email, password_digest)
+                        (username, email, password_digest, profile_pic_url)
                         VALUES
-                        ('${username}', '${email}', '${hashedPass}');
+                        ($1, $2, $3, $4);
                     `
             
-                    db.query(sql, (err, result) => {
+                    db.query(sql, [username, email, hashedPass, defaultProfilePic], (err, result) => {
             
                         if(err) {
+
                             console.log(err);
+                            return
+
                         } else {
+
                             console.log('user created');
                         }
-                        
-                        res.redirect('/')
 
+                        let sessionPrompt = 'Sign up successful. Please log in to proceed.'
+                        res.render ('login', { sessionPrompt: sessionPrompt })
                     })
             
                 })

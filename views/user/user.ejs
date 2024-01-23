@@ -1,22 +1,52 @@
 <img src="https://fakeimg.pl/600x300" alt="stitch-logo">
 
-<p>
-    <img src="https://fakeimg.pl/200x200?text=profile_pic" alt="<%= user.username %>-profile-pic">
-</p>
-<p>
-    <%= user.description %>
-</p>
-<p>
-    <a href="/<%= user.username %>/followers">followers</a>
-    <%= userFollowers %>
-</p>
-<p>
-    <a href="/<%= user.username %>/following">following</a>
-    <%= userFollowing %>
-</p>
-<p>
-    <a href="">edit profile</a>
-</p>
-<p>
-    <button>log out</button>
-</p>
+<div class="aside">
+
+        <p>
+            <img src="<%= user.profile_pic_url %>" alt="<%= user.username %>-profile-picture">
+        </p>
+        <p>
+            <%= user.username %>
+        </p>
+        <p>
+            <%= user.description %>
+        </p>
+        <p>
+            <a href="/<%= user.username %>/followers">followers <%= followerCount %></a>
+            
+        </p>
+        <p>
+            <a href="/<%= user.username %>/following">following <%= followingCount %></a>
+            
+        </p>
+        <p>
+            <a href="/<%= user.username %>/edit">edit profile</a>
+        </p>
+        <p>
+            <form action="/logout?_method=delete" method="post">
+                <button>log out</button>
+            </form>
+        </p>
+
+</div>
+
+<div class="main">
+
+    <p>
+        <a href="/posts/new">create a stitch</a>
+    </p>
+
+    <% for (let post of posts) { %> 
+    
+        <p>
+            <%= post.post %>
+        </p>
+    
+    <% } %>
+
+</div>
+
+
+
+
+

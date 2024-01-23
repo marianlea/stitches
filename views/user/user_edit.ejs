@@ -1,0 +1,16 @@
+<img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+
+<form action="/<%= user.username %>?_method=put" method="post">
+    
+    <p>
+        <label for="">profile picture</label>
+        <input type="text" name="profile_pic_url" value="<%= user.profile_pic_url %>">
+    </p>
+    <p>
+        <textarea name="description" placeholder="description" maxlength="140" aria-valuemax="<%= user.description %>"></textarea>
+    </p>
+    <p>
+        <button>update</button>
+    </p>
+
+</form>

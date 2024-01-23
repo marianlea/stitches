@@ -22,3 +22,6 @@ CREATE TABLE posts (
 
 INSERT INTO users (username, email, password_digest)
 VALUES ('testing', 'lea@hello.com', 'cookie123');
+
+INSERT INTO posts (post, type, user_id)
+VALUES ('hi everyone!', 'post', 1);
