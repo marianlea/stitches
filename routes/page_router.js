@@ -53,7 +53,6 @@ router.get('/search', ensureLoggedIn, (req, res) => {
 
     let keywords = req.query.keywords
 
-    console.log(keywords);
     if (!keywords) {
         
         console.log('no keywords');
@@ -84,43 +83,5 @@ router.get('/search', ensureLoggedIn, (req, res) => {
 
 })
 
-
-router.get('/users/:username', (req, res) => {
-
-    const usernameSearchUser = req.params.username
-    let followerCount = 0
-    let followingCount = 0
-    const sqlSearchUser = `
-        SELECT * FROM users
-        WHERE username = $1;
-    `
-
-    db.query(sqlSearchUser, [ usernameSearchUser ], (err, resultSearchUser) => {
-
-        if (err) {
-            console.log(err);
-        }
-
-        const searchUser = resultSearchUser.rows[0]
-        
-        const sqlSearchUserPosts = `
-            SELECT * FROM posts
-            WHERE user_id = $1;
-        `
-        db.query(sqlSearchUserPosts, [ searchUser.id ], (err, resultSearchUserPosts) => {
-
-            if (err) {
-                console.log(err);
-            }
-
-            const searchUserPosts = resultSearchUserPosts.rows
-
-            res.render('user/user', { user: searchUser, followerCount: followerCount, followingCount: followingCount, posts: searchUserPosts } )
-
-        })
-
-    })
-
-})
 
 module.exports = router

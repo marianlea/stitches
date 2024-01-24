@@ -7,14 +7,12 @@
         </p>
         <p>
             <%= user.username %>
-            <!-- <% if (user.id !== userId) { %>
 
-                <form action="/<%= user.username %>/followers?_method=put" method="post">
+                <form action="/users/<%= user.username %>?_method=put" method="post">
                     <input type="hidden" name="follow" value="1">
-                    <button>follow</button>
+                    <button><%= buttonText %></button>
                 </form>
 
-            <% } %> -->
         </p>
         <p>
             <%= user.description %>
@@ -26,16 +24,6 @@
         <p>
             <a href="/<%= user.username %>/following">following <%= followingCount %></a>
             
-        </p>
-        <!-- <% if (user.id === userId) { %> -->
-        <p>
-            <a href="/<%= user.username %>/edit">edit profile</a>
-        </p>
-        <!-- <% } %> -->
-        <p>
-            <form action="/logout?_method=delete" method="post">
-                <button>log out</button>
-            </form>
         </p>
 
 </div>
@@ -59,12 +47,5 @@
     <a href="/">home</a>
     <a href="/search">search</a>
     <a href="/posts/new">create a stitch</a>
-    <!-- <% if (user.id === userId) { %> -->
-        <a href="/<%= user.username %>">profile</a>
-    <!-- <% } %> -->
+    <a href="/<%= sessionUser.username %>">profile</a>
 </nav>
-
-
-
-
-

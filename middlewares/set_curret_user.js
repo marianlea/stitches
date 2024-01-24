@@ -24,8 +24,6 @@ const setCurrentUSer = (req, res, next) => {
 
         }
 
-        console.log(result.rows);
-
         let user = result.rows[0]
 
         res.locals.currentUser= user

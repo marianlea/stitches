@@ -103,7 +103,7 @@ router.get('/:username', ensureLoggedIn, (req, res) => {
 
             const posts = resultPosts.rows
             
-            res.render('user/user', { user: user, followerCount: followerCount, followingCount: followingCount, posts: posts })
+            res.render('user/user', { user: user, followerCount: followerCount, followingCount: followingCount, posts: posts, userId: userId })
 
         })
 
@@ -139,6 +139,7 @@ router.put('/:username', ensureLoggedIn, (req, res) => {
     const username = req.params.username
     const profilePicUrl = req.body.profile_pic_url
     const description = req.body.description
+
     const sql = `
         UPDATE users
         SET
