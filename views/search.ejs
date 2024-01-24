@@ -1,32 +1,40 @@
 
 
+<div class="search-results-page-div">
+    <img src="/assets/logo.png" alt="stitch-logo" class="small-logo">
+    <% if (!keywords) { %>
 
-<% if (!keywords) { %>
+        <form action="/search">
 
-    <form action="/search">
+            <input type="text" name="keywords">
+            <button class="search-btn"><img src="/assets/search-icon.png" alt="" class="search-btn-icon"></button>
+        
+        </form>
 
-        <input type="text" name="keywords">
-        <button>search</button>
-    
-    </form>
+    <% } else { %>
 
-<% } else { %>
+        <form action="/search">
 
-    <form action="/search">
+            <input type="text" name="keywords" value="<%= keywords %>">
+            <button class="search-btn"><img src="/assets/search-icon.png" alt="" class="search-btn-icon"></button>
+        
+        </form>
 
-        <input type="text" name="keywords" value="<%= keywords %>">
-        <button>search</button>
-    
-    </form>
+        <% for (let user of users) { %>
+        
+            <p>
+                <a href="/users/<%= user.username %>">
+                    <img src="<%= user.profile_pic_url %>" alt="" class="feed-profile-pic">
+                    <%= user.username %>
+                </a>
+            </p>
 
-    <% for (let user of users) { %>
-    
-        <p>
-            <a href="/users/<%= user.username %>"><%= user.username %></a>
-        </p>
+        <% } %>
 
     <% } %>
 
+    <nav class="bottom-nav">
+        <a href="/"><img src="/assets/home-icon.png" alt=""></a>
+    </nav>
 
-<% } %>
-
+</div>

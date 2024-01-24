@@ -8,7 +8,8 @@ CREATE TABLE users (
     profile_pic_url TEXT,
     description TEXT,
     followers INTEGER ARRAY,
-    following INTEGER ARRAY
+    following INTEGER ARRAY,
+    date_created TEXT
 );
 
 CREATE TABLE posts (
@@ -17,7 +18,8 @@ CREATE TABLE posts (
     type TEXT,
     user_id INTEGER,
     hearts INTEGER,
-    reply_ids INTEGER ARRAY
+    reply_ids INTEGER ARRAY,
+    date_created TEXT
 );
 
 INSERT INTO users (username, email, password_digest)

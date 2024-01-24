@@ -131,17 +131,18 @@ router.get('/users/:username', ensureLoggedIn, (req, res) => {
                 }
 
                 const sessionUser = resultSessionUser.rows[0]
+                console.log(sessionUser);
+                console.log(userFollower);
 
-                if (userFollower.includes(userId)) {
-
-                    res.render('user/show_user_search', { user: searchUser, followerCount: followerCount, followingCount: followingCount, posts: searchUserPosts, userId: userId, sessionUser: sessionUser, buttonText: 'unfollow'})
-
-                } else {
+                if (!userFollower || !userFollower.includes(sessionUser.id)) {
 
                     res.render('user/show_user_search', { user: searchUser, followerCount: followerCount, followingCount: followingCount, posts: searchUserPosts, userId: userId, sessionUser: sessionUser, buttonText: 'follow'})
 
-                }
+                } else {
 
+                    res.render('user/show_user_search', { user: searchUser, followerCount: followerCount, followingCount: followingCount, posts: searchUserPosts, userId: userId, sessionUser: sessionUser, buttonText: 'unfollow'})
+
+                }
 
             })
 
@@ -181,8 +182,43 @@ router.put('/users/:username', ensureLoggedIn, (req, res) => {
             const sessionUser = resultSessionUser.rows[0]
             const sessionUserFollowing = sessionUser.following
 
-            if (userFollowers.includes(userId)) {
+            if (!userFollowers || !userFollowers.includes(userId)) {
 
+                const sqlUpdateFollower = `
+                    UPDATE users
+                    SET followers = array_append(followers, $1)
+                    WHERE id = $2;
+                `
+                db.query(sqlUpdateFollower, [ userId, userIdToFollow ], (err, resultUpdateFollower) => {
+    
+                    if (err) {
+                        console.log(err);
+                        return
+                    }
+    
+                    console.log(`user ${userId} added as follower`);
+    
+                    const sqlUpdateFollowing = `
+                        UPDATE users
+                        SET following = array_append
+                        (following, $1)
+                        WHERE id = $2;
+                    `
+                    db.query(sqlUpdateFollowing, [ userIdToFollow, userId ], (err, resultUpdateFollowing) => {
+
+                        if (err) {
+                            console.log(err);
+                        }
+
+                        console.log(`user ${userId} followed ${userIdToFollow}`);
+
+                        res.redirect(`/users/${userToFollow}`)
+
+                    })
+                })
+    
+            } else {
+    
                 const sqlRemoveFollower = `
                     UPDATE users
                     SET followers = array_remove(followers, $1)
@@ -215,42 +251,6 @@ router.put('/users/:username', ensureLoggedIn, (req, res) => {
 
                     })
     
-                })
-    
-    
-            } else {
-    
-                const sqlUpdateFollower = `
-                    UPDATE users
-                    SET followers = array_append(followers, $1)
-                    WHERE id = $2;
-                `
-                db.query(sqlUpdateFollower, [ userId, userIdToFollow ], (err, resultUpdateFollower) => {
-    
-                    if (err) {
-                        console.log(err);
-                        return
-                    }
-    
-                    console.log(`user ${userId} added as follower`);
-    
-                    const sqlUpdateFollowing = `
-                        UPDATE users
-                        SET following = array_append
-                        (following, $1)
-                        WHERE id = $2;
-                    `
-                    db.query(sqlUpdateFollowing, [ userIdToFollow, userId ], (err, resultUpdateFollowing) => {
-
-                        if (err) {
-                            console.log(err);
-                        }
-
-                        console.log(`user ${userId} followed ${userIdToFollow}`);
-
-                        res.redirect(`/users/${userToFollow}`)
-
-                    })
                 })
 
             }

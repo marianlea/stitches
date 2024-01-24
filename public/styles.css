@@ -1,0 +1,201 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('/assets/background.png');
+    background-size: cover;
+    font-family: 'Inconsolata', monospace;
+}
+
+.body-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.home-page-div, .search-results-page-div {
+    margin: auto;
+    font-family: 'Inconsolata', monospace;
+}
+
+.logo {
+    display: block;
+    width: 40rem;
+}
+
+.home-page-div h3 {
+    margin-bottom: 50px;
+}
+
+.sign-up, .login {
+    margin: 100px 30px;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 3px 10px;
+    box-shadow: 5px 3px 3px rgba(0, 0, 0, 0.1);
+    border: solid 5px rgba(230, 229, 229, 0.873);
+    border-radius: 10px;
+    background-color: rgba(230, 229, 229, 0.873);
+    color: black;
+    font-family: 'Inconsolata', monospace;
+}
+
+.home-page-div input, .search-results-page-div input {
+    width: 15rem;
+    height: 2rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 20px;
+    font-family: 'Inconsolata', monospace;
+    font-size: 1rem;
+    padding-left: 5px;
+}
+
+.email-p {
+    margin-left: 20px;
+}
+
+.small-logo {
+    width: 200px;
+    margin-bottom: 40px;
+}
+
+.post-div {
+    border-bottom: 1px dotted #b4b4b4;
+    margin: 20px;
+    width: 400px;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    border: 1px solid #b4b4b4;
+}
+
+.feed-profile-pic {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-post-div {
+    text-align: start;
+    padding-left: 20px;
+}
+
+.text-post-div {
+    display: inline;
+}
+
+.see-post-btn, .follow-btn, .post-btn, .update-btn {
+    width: 100%;
+    height: 20px;
+    border: 0;
+    background-color: transparent;
+    font-family: 'Inconsolata', monospace;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.post-div a {
+    text-decoration: none;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #d9d9d9;
+}
+
+.bottom-nav img {
+    width: 25px;
+    margin: 10px 20px;
+}
+
+.search-btn {
+    background-color: transparent;
+    border: 0;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.search-btn-icon {
+    width: 25px;
+}
+
+.search-results-page-div a {
+    text-decoration: none;
+    color: black
+}
+
+.search-results-page-div p {
+    text-align: start;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px dotted #b4b4b4;
+}
+
+aside {
+    position: fixed;
+    top: 30vh;
+    left: 20%;
+}
+
+header {
+    margin-top: 70px;
+}
+
+.user-div-wrapper p{
+    text-decoration: none;
+}
+
+.edit-profile-link {
+    text-decoration: none;
+    color: black;
+}
+
+.reply-input, .edit-post-input, .new-post-input, .description-input {
+    height: 40px;
+    width: 400px;
+    background-color: transparent;
+    border: 1px dotted #b4b4b4;
+    margin-bottom: 20px;
+}
+
+.post-btn, .update-btn {
+    height: 40px;
+    border-top: 1px dotted #b4b4b4;;
+    border-bottom: 1px dotted #b4b4b4;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.edit-post-p, .new-post-input {
+    width: 100%;
+    border-top: 1px dotted #b4b4b4;;
+    border-bottom: 1px dotted #b4b4b4;
+    height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.edit-post-link {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+
+.new-post-input, .description-input {
+    height: 70px;
+    width: 600px;
+}

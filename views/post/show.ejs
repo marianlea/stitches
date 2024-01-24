@@ -1,11 +1,48 @@
-<p>
-    <%= post.post %>
-</p>
-
-<% if (userId === post.user_id) { %>
+<div class="home-page-div">
     <p>
-        <a href="/posts/<%= post.id %>/edit">edit post</a>
+        <%= post.post %>
     </p>
-<% } %>
+    
+    
+    <% if (repliesArray && repliesArray.length === 0) { %>
+    
+    <% } else if (repliesArray && repliesArray.length === 1) { %>
+    
+        <p>
+            <%= repliesArray[0].post %>
+        
+        </p>
+    
+    <% } else if (repliesArray && repliesArray.length > 1) { %>
+    
+        <% for (let reply of repliesArray) { %>
+    
+            <p><%= reply.post %></p>
+    
+        <% } %>
+    
+    <% } %>
 
-<a href="/">home</a>
+    
+        <form action="/posts/<%= post.id %>" method="post">
+            <div >
+                <textarea name="reply" maxlength="300" placeholder="reply to <%= postAuthor.username %>" class="reply-input"></textarea>
+            </div>
+            <button class="post-btn">post</button>
+        </form>
+        
+  
+    
+    <% if (userId === post.user_id) { %>
+        <p class="edit-post-p">
+            <a href="/posts/<%= post.id %>/edit" class="edit-post-link">edit post</a>
+        </p>
+    <% } %>
+    
+    <nav class="bottom-nav">
+        <a href="/"><img src="/assets/home-icon.png" alt=""></a>
+        <a href="/search"><img src="/assets/search-icon.png" alt=""></a>
+        <a href="/posts/new"><img src="/assets/post-icon.png" alt=""></a>
+        <a href="/<%= user.username %>"><img src="/assets/user-icon.png" alt=""></a>
+    </nav>
+</div>

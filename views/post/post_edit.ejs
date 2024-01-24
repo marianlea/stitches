@@ -1,15 +1,20 @@
+<div class="home-page-div">
+    
+    <a href="/"><img src="/assets/logo.png" alt="stitch-logo" class="small-logo"></a>
 
-<img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+    <form action="/posts/<%= post.id %>?_method=put" method="post">
 
-<form action="/posts/<%= post.id %>?_method=put" method="post">
+        <div>
+            <textarea name="post" maxlength="300" class="edit-post-input"><%= post.post %></textarea>
+        </div>
 
-    <textarea name="post" maxlength="300">
+        <button class="update-btn">update</button>
 
-        <%= post.post %>
+    </form>
 
-    </textarea>
+    <nav class="bottom-nav">
+        <a href="/"><img src="/assets/home-icon.png" alt=""></a>
+    </nav>
+</div>
 
-    <button>update</button>
-
-</form>
 

@@ -1,16 +1,20 @@
-<img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+<div class="user-div-wrapper">
 
-<div class="aside">
+    <header>
+        <img src="/assets/logo.png" alt="stitch-logo" class="small-logo">
+    </header>
+
+    <aside>
 
         <p>
-            <img src="<%= user.profile_pic_url %>" alt="<%= user.username %>-profile-picture">
+            <img src="<%= user.profile_pic_url %>" alt="<%= user.username %>-profile-picture" class="profile-pic">
         </p>
         <p>
             <%= user.username %>
 
                 <form action="/users/<%= user.username %>?_method=put" method="post">
-                    <input type="hidden" name="follow" value="1">
-                    <button><%= buttonText %></button>
+                    <input type="hidden" name="follow">
+                    <button class="follow-btn"><%= buttonText %></button>
                 </form>
 
         </p>
@@ -18,34 +22,36 @@
             <%= user.description %>
         </p>
         <p>
-            <a href="/<%= user.username %>/followers">followers <%= followerCount %></a>
-            
+            followers <%= followerCount %>
         </p>
         <p>
-            <a href="/<%= user.username %>/following">following <%= followingCount %></a>
-            
+            following <%= followingCount %></a> 
         </p>
 
-</div>
+    </aside>
 
-<div class="main">
+    <main>
 
     <% for (let post of posts) { %> 
-    
-        <p>
-            <%= post.post %>
-            <form action="/posts/<%= post.id %>?_method=put">
-                <button>see post</button>
-            </form>
-        </p>
-    
+        
+        <div class="post-div">
+            <div class="text-post-div">
+                <%= post.post %>
+                <form action="/posts/<%= post.id %>?_method=put">
+                    <button class="see-post-btn">see post</button>
+                </form>
+            </div>
+        </div>
+
     <% } %>
 
-</div>
+    </main>
 
-<nav>
-    <a href="/">home</a>
-    <a href="/search">search</a>
-    <a href="/posts/new">create a stitch</a>
-    <a href="/<%= sessionUser.username %>">profile</a>
-</nav>
+    <nav class="bottom-nav">
+    <a href="/"><img src="/assets/home-icon.png" alt=""></a>
+    <a href="/search"><img src="/assets/search-icon.png" alt=""></a>
+    <a href="/posts/new"><img src="/assets/post-icon.png" alt=""></a>
+    <a href="/<%= sessionUser.username %>"><img src="/assets/user-icon.png" alt=""></a>
+    </nav>
+
+</div>

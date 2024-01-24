@@ -1,34 +1,76 @@
 
-
 <% if (!userId) { %>
 
-    <img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+    <div class="home-page-div">
+        <img src="/assets/logo.png" alt="stitches-logo" class="logo">
+        <h3>weaving conversations, one stitch at a time</h3>
+    
+        <p>
+            <a href="/user/new" class="sign-up">sign up</a>
+            <a href="/login" class="login">log in</a>
+        </p>
+    </div>
 
-    <h1>weaving conversations, one stitch at a time</h1>
-
-    <a href="/user/new">Sign Up</a>
-    <a href="/login">Log In</a>
 
 <% }  else { %>
 
-    <img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+    <div class="home-page-div">
 
-    <% for (let post of posts) { %> 
+        <img src="/assets/logo.png" alt="stitch-logo" class="small-logo">
+
+    <% if (postsArray && postsArray.length === 0) { %>
+
+        <div class="text-post-div">
+            No posts yet.
+        </div>
     
-        <p>
-            <%= post.post %>
-            <form action="/posts/<%= post.id %>?_method=put">
-                <button>see post</button>
+    <%} else if (postsArray && postsArray.length === 1) { %>
+
+        <div class="post-div">
+            <div class="user-post-div">
+                <a href="/users/<%= postsArray[0].username %>">
+                    <img src="<%= postsArray[0].userPic %>" alt="" class="feed-profile-pic">
+                </a>
+                <div class="text-post-div">
+                    <%= postsArray[0].post%>
+                </div>
+            </div>
+            <form action="/posts/<%= postsArray[0].id %>?_method=put">
+                <button class="see-post-btn">see post</button>
             </form>
-        </p>
+        </div>
+
+    <% } else if (postsArray && postsArray.length > 1) { %>
+
+        <% for (let item of postsArray) { %> 
     
+            <div class="post-div">
+                <div class="user-post-div">
+                    <a href="/users/<%= item.username %>">
+                        <img src="<%= item.userPic %>" alt="" class="feed-profile-pic">
+                    </a>
+                    <div class="text-post-div">
+                        <%= item.post %>
+                    </div>
+                </div>
+                <form action="/posts/<%= item.id %>?_method=put">
+                    <button class="see-post-btn">see post</button>
+                </form>
+            </div>
+        
+        <% } %>
+        
     <% } %>
 
-    <nav>
-        <a href="/">home</a>
-        <a href="/search">search</a>
-        <a href="/posts/new">create a stitch</a>
-        <a href="/<%= username %>">profile</a>
+
+    <nav class="bottom-nav">
+        <a href="/"><img src="/assets/home-icon.png" alt=""></a>
+        <a href="/search"><img src="/assets/search-icon.png" alt=""></a>
+        <a href="/posts/new"><img src="/assets/post-icon.png" alt=""></a>
+        <a href="/<%= username %>"><img src="/assets/user-icon.png" alt=""></a>
     </nav>
 
+</div>
 <% } %>
+
+    

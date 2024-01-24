@@ -1,24 +1,28 @@
-<img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+<div class="home-page-div">
 
-<form action="/signup" method="post">
-    
-    <p>
-        <%= prompt %>
-    </p>
-    <p>
-        <label for="">username</label>
-        <input type="text" name="username">
-    </p>
-    <p>
-        <label for="">email</label>
-        <input type="email" name="email">
-    </p>
-    <p>
-        <label for="">password</label>
-        <input type="password" name="password">
-    </p>
-    <p>
-        <button>sign up</button>
-    </p>
+    <img src="/assets/logo.png" class="logo" alt="stitch-logo">
 
-</form>
+    <form action="/signup" method="post">
+        
+        <p>
+            <%= prompt %>
+        </p>
+        <p>
+            <label for="">username</label>
+            <input type="text" name="username">
+        </p>
+        <p class="email-p">
+            <label for="">email</label>
+            <input type="email" name="email">
+        </p>
+        <p>
+            <label for="">password</label>
+            <input type="password" name="password">
+        </p>
+        <p>
+            <button class="sign-up">sign up</button>
+        </p>
+
+    </form>
+
+</div>

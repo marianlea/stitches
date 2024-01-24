@@ -18,6 +18,7 @@ const postRouter = require('./routes/post_router.js')
 
 app.set('view engine', 'ejs')
 
+app.use(express.static('public'))
 app.use(expressLayout)
 app.use(methodOverride('_method'))
 app.use(requestLogger)

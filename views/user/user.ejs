@@ -1,68 +1,64 @@
-<img src="https://fakeimg.pl/600x300" alt="stitch-logo">
-
-<div class="aside">
-
-        <p>
-            <img src="<%= user.profile_pic_url %>" alt="<%= user.username %>-profile-picture">
-        </p>
-        <p>
-            <%= user.username %>
-            <!-- <% if (user.id !== userId) { %>
-
-                <form action="/<%= user.username %>/followers?_method=put" method="post">
-                    <input type="hidden" name="follow" value="1">
-                    <button>follow</button>
+<div class="user-div-wrapper">
+    <header>
+        <img src="/assets/logo.png" alt="stitch-logo" class="small-logo">
+    </header>
+    
+    <aside>
+    
+            <p>
+                <img src="<%= user.profile_pic_url %>" alt="<%= user.username %>-profile-picture" class="profile-pic">
+            </p>
+            <p>
+                <%= user.username %>
+    
+            </p>
+            <p>
+                <%= user.description %>
+            </p>
+            <p>
+                followers <%= followerCount %>
+                
+            </p>
+            <p>
+                following <%= followingCount %>
+                
+            </p>
+    
+            <p>
+                <a href="/<%= user.username %>/edit" class="edit-profile-link">edit profile</a>
+            </p>
+    
+            <p>
+                <form action="/logout?_method=delete" method="post">
+                    <button class="login">log out</button>
                 </form>
-
-            <% } %> -->
-        </p>
-        <p>
-            <%= user.description %>
-        </p>
-        <p>
-            <a href="/<%= user.username %>/followers">followers <%= followerCount %></a>
-            
-        </p>
-        <p>
-            <a href="/<%= user.username %>/following">following <%= followingCount %></a>
-            
-        </p>
-        <!-- <% if (user.id === userId) { %> -->
-        <p>
-            <a href="/<%= user.username %>/edit">edit profile</a>
-        </p>
-        <!-- <% } %> -->
-        <p>
-            <form action="/logout?_method=delete" method="post">
-                <button>log out</button>
-            </form>
-        </p>
-
+            </p>
+    
+        </aside>
+    
+    <div class="main">
+    
+        <% for (let post of posts) { %> 
+        
+            <div class="post-div">
+                <%= post.post %>
+                <form action="/posts/<%= post.id %>?_method=put">
+                    <button class="see-post-btn">see post</button>
+                </form>
+            </div>
+        
+        <% } %>
+    
+    </div>
+    
+    <nav class="bottom-nav">
+        <a href="/"><img src="/assets/home-icon.png" alt=""></a>
+        <a href="/search"><img src="/assets/search-icon.png" alt=""></a>
+        <a href="/posts/new"><img src="/assets/post-icon.png" alt=""></a>
+        <a href="/<%= user.username %>"><img src="/assets/user-icon.png" alt=""></a>
+    </nav>
 </div>
 
-<div class="main">
-
-    <% for (let post of posts) { %> 
-    
-        <p>
-            <%= post.post %>
-            <form action="/posts/<%= post.id %>?_method=put">
-                <button>see post</button>
-            </form>
-        </p>
-    
-    <% } %>
-
-</div>
-
-<nav>
-    <a href="/">home</a>
-    <a href="/search">search</a>
-    <a href="/posts/new">create a stitch</a>
-    <!-- <% if (user.id === userId) { %> -->
-        <a href="/<%= user.username %>">profile</a>
-    <!-- <% } %> -->
-</nav>
 
 
 

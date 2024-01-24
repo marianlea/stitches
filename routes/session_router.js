@@ -76,23 +76,21 @@ router.get('/:username', ensureLoggedIn, (req, res) => {
     db.query(sql, [ userId ] , (err, result)=> {
 
         const user = result.rows[0]
-
-        // if (user.followers) {
-        //     followerCount = 0
-        // }
-        // console.log(user.followers);
-
-        // if (user.following === null) {
-        //     followingCount = 0
-        // }
-
+        const followers = result.rows[0].followers
+        if (followers && followers.length){
+            followerCount = followers.length
+        }
+        const following = result.rows[0].following
+        if (following && following.length){
+            followingCount = following.length
+        }
         const sqlPosts = `
             SELECT * FROM posts
             WHERE user_id = $1
+            AND type = 'post'
             ORDER BY id DESC;
         `
 
-        
         db.query(sqlPosts, [ userId ], (err, resultPosts) => {
 
             if (err) {
