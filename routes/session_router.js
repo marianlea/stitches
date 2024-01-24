@@ -14,22 +14,20 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
 
     let sessionPrompt = ''
-    const username = req.body.username
-    
+    const username = req.body.username    
 
     const sql = `
         SELECT * FROM users
         WHERE username = $1;
     `
     
-    db.query(sql, [username], (err, result) => {
+    db.query(sql, [ username ], (err, result) => {
 
         if(err) {
             console.log(err);
             return
         }
 
-        console.log(username);
         if (result.rowCount === 0) {
             sessionPrompt = 'user not found'
             res.render('login', { sessionPrompt: sessionPrompt })
@@ -53,9 +51,9 @@ router.post('/login', (req, res) => {
                 return
             }
 
-            console.log('redirect to profile page');
+            console.log('redirect to home page');
             req.session.userId = result.rows[0].id
-            res.redirect(`/${username}/feed`) 
+            res.redirect('/') 
 
         })
 
@@ -65,48 +63,49 @@ router.post('/login', (req, res) => {
 
 router.get('/:username', ensureLoggedIn, (req, res) => {
 
+    const userId = req.session.userId
     const username = req.params.username
-    let followerCount = null
-    let followingCount = null
+
+    let followerCount = 0
+    let followingCount = 0
     const sql = `
         SELECT * from users
-        WHERE username = $1;
+        WHERE id = $1;
     `
 
-    db.query(sql, [username], (err, result)=> {
-
-        if (err) {
-            console.log(err);
-        }
+    db.query(sql, [ userId ] , (err, result)=> {
 
         const user = result.rows[0]
 
-        if (user.followers === null) {
-            followerCount = 0
-        }
+        // if (user.followers) {
+        //     followerCount = 0
+        // }
+        // console.log(user.followers);
 
-        if (user.following === null) {
-            followingCount = 0
-        }
+        // if (user.following === null) {
+        //     followingCount = 0
+        // }
 
         const sqlPosts = `
             SELECT * FROM posts
-            WHERE user_id = $1;
-            `
+            WHERE user_id = $1
+            ORDER BY id DESC;
+        `
 
-        db.query(sqlPosts, [ user.id ], (err, resultPosts) => {
+        
+        db.query(sqlPosts, [ userId ], (err, resultPosts) => {
 
             if (err) {
+
                 console.log(err);
                 
             }
 
             const posts = resultPosts.rows
             
-            res.render('user/user', { user: user, followerCount: followerCount, followingCount: followingCount, posts: posts } )
+            res.render('user/user', { user: user, followerCount: followerCount, followingCount: followingCount, posts: posts })
 
         })
-
 
     })
 
@@ -156,16 +155,9 @@ router.put('/:username', ensureLoggedIn, (req, res) => {
         }
 
         console.log('updated')
-        res.redirect(`/${username}/posts`)
+        res.redirect(`/${username}`)
 
     })
-})
-
-router.get('/:username/feed', ensureLoggedIn, (req, res) => {
-
-    const username = req.params.username
-
-    res.render('index', { username: username })
 })
 
 router.delete('/logout', ensureLoggedIn, (req, res) => {

@@ -1,0 +1,32 @@
+
+
+
+<% if (!keywords) { %>
+
+    <form action="/search">
+
+        <input type="text" name="keywords">
+        <button>search</button>
+    
+    </form>
+
+<% } else { %>
+
+    <form action="/search">
+
+        <input type="text" name="keywords" value="<%= keywords %>">
+        <button>search</button>
+    
+    </form>
+
+    <% for (let user of users) { %>
+    
+        <p>
+            <a href="/users/<%= user.username %>"><%= user.username %></a>
+        </p>
+
+    <% } %>
+
+
+<% } %>
+

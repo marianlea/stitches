@@ -73,7 +73,7 @@ router.get('/posts/:id', ensureLoggedIn, (req, res) => {
 
         const post = result.rows[0]
 
-        res.render('post/show', { post: post })
+        res.render('post/show', { post: post, userId: userId })
     })
 
 })

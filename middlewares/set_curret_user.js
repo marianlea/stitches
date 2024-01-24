@@ -16,13 +16,15 @@ const setCurrentUSer = (req, res, next) => {
         SELECT * FROM users
         WHERE id = $1;
     `
-    db.query(sql, [userId], (err, result) => {
+    db.query(sql, [ userId ], (err, result) => {
 
         if (err) {
 
             console.log(err);
 
         }
+
+        console.log(result.rows);
 
         let user = result.rows[0]
 

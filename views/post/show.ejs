@@ -1,8 +1,11 @@
 <p>
     <%= post.post %>
 </p>
-<p>
-    <a href="/posts/<%= post.id %>/edit">edit post</a>
-</p>
+
+<% if (userId === post.user_id) { %>
+    <p>
+        <a href="/posts/<%= post.id %>/edit">edit post</a>
+    </p>
+<% } %>
 
 <a href="/">home</a>

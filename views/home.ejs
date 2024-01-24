@@ -1,6 +1,34 @@
-<img src="https://fakeimg.pl/600x300" alt="stitch-logo">
 
-<h1>weaving conversations, one stitch at a time</h1>
 
-<a href="/user/new">Sign Up</a>
-<a href="/login">Log In</a>
+<% if (!userId) { %>
+
+    <img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+
+    <h1>weaving conversations, one stitch at a time</h1>
+
+    <a href="/user/new">Sign Up</a>
+    <a href="/login">Log In</a>
+
+<% }  else { %>
+
+    <img src="https://fakeimg.pl/600x300" alt="stitch-logo">
+
+    <% for (let post of posts) { %> 
+    
+        <p>
+            <%= post.post %>
+            <form action="/posts/<%= post.id %>?_method=put">
+                <button>see post</button>
+            </form>
+        </p>
+    
+    <% } %>
+
+    <nav>
+        <a href="/">home</a>
+        <a href="/search">search</a>
+        <a href="/posts/new">create a stitch</a>
+        <a href="/<%= username %>">profile</a>
+    </nav>
+
+<% } %>

@@ -32,22 +32,25 @@
 
 <div class="main">
 
-    <p>
-        <a href="/posts/new">create a stitch</a>
-    </p>
-
     <% for (let post of posts) { %> 
     
         <p>
-            <a href="/posts/<%= post.id %>"><%= post.post %></a>
+            <%= post.post %>
             <form action="/posts/<%= post.id %>?_method=put">
-                <button>edit post</button>
+                <button>see post</button>
             </form>
         </p>
     
     <% } %>
 
 </div>
+
+<nav>
+    <a href="/">home</a>
+    <a href="/search">search</a>
+    <a href="/posts/new">create a stitch</a>
+    <a href="/<%= user.username %>">profile</a>
+</nav>
 
 
 
