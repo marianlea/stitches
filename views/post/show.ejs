@@ -1,6 +1,8 @@
 <div class="home-page-div">
     <p>
-        <%= post.post %>
+        <div class="show-post-div">
+            <%= post.post %>
+        </div>
     </p>
     
     
@@ -25,7 +27,7 @@
 
     
         <form action="/posts/<%= post.id %>" method="post">
-            <div >
+            <div>
                 <textarea name="reply" maxlength="300" placeholder="reply to <%= postAuthor.username %>" class="reply-input"></textarea>
             </div>
             <button class="post-btn">post</button>
@@ -37,6 +39,16 @@
         <p class="edit-post-p">
             <a href="/posts/<%= post.id %>/edit" class="edit-post-link">edit post</a>
         </p>
+        
+        <form action="/posts/<%= post.id %>?_method=delete" method="post">
+
+            <div>
+                <input type="hidden">
+            </div>
+    
+            <button class="delete-btn">delete</button>
+    
+        </form>
     <% } %>
     
     <nav class="bottom-nav">

@@ -147,12 +147,10 @@ router.get('/search', ensureLoggedIn, (req, res) => {
 
     if (!keywords) {
         
-        console.log('no keywords');
         res.render('search', { keywords : keywords })
 
     } else {
 
-        console.log('keywords exist');
         let searchKeywords = `%${keywords}%`
         const sql = `
             SELECT * FROM users

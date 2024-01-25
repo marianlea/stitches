@@ -66,6 +66,8 @@ body {
     border-bottom: 1px dotted #b4b4b4;
     margin: 20px;
     width: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-pic {
@@ -87,13 +89,28 @@ body {
 .user-post-div {
     text-align: start;
     padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    display: block;
+    color: black;
+    font-size: 12px;
+}
+
+.user-post-wrapper {
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    margin-left: 10px;
 }
 
 .text-post-div {
-    display: inline;
+    display: block;
+    text-align: left;
 }
 
-.see-post-btn, .follow-btn, .post-btn, .update-btn {
+.see-post-btn, .follow-btn, .post-btn, .update-btn, .delete-btn {
     width: 100%;
     height: 20px;
     border: 0;
@@ -172,7 +189,7 @@ header {
     margin-bottom: 20px;
 }
 
-.post-btn, .update-btn {
+.post-btn, .update-btn, .delete-btn {
     height: 40px;
     border-top: 1px dotted #b4b4b4;;
     border-bottom: 1px dotted #b4b4b4;
@@ -198,4 +215,8 @@ header {
 .new-post-input, .description-input {
     height: 70px;
     width: 600px;
+}
+
+.show-post-div {
+    width: 400px;
 }

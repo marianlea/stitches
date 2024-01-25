@@ -51,7 +51,6 @@ router.post('/login', (req, res) => {
                 return
             }
 
-            console.log('redirect to home page');
             req.session.userId = result.rows[0].id
             res.redirect('/') 
 
@@ -153,7 +152,6 @@ router.put('/:username', ensureLoggedIn, (req, res) => {
             console.log(err);
         }
 
-        console.log('updated')
         res.redirect(`/${username}`)
 
     })

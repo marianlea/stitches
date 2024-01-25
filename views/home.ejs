@@ -20,7 +20,7 @@
 
     <% if (postsArray && postsArray.length === 0) { %>
 
-        <div class="text-post-div">
+        <div class="post-div">
             No posts yet.
         </div>
     
@@ -31,8 +31,14 @@
                 <a href="/users/<%= postsArray[0].username %>">
                     <img src="<%= postsArray[0].userPic %>" alt="" class="feed-profile-pic">
                 </a>
-                <div class="text-post-div">
-                    <%= postsArray[0].post%>
+                <div class="user-post-wrapper">
+                    <div class="text-post-div">
+                        <div class="username"><%= postsArray[0].username %></div>
+                        <div class="text-post-div">
+                        <%= postsArray[0].post %>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <form action="/posts/<%= postsArray[0].id %>?_method=put">
@@ -48,9 +54,13 @@
                 <div class="user-post-div">
                     <a href="/users/<%= item.username %>">
                         <img src="<%= item.userPic %>" alt="" class="feed-profile-pic">
+
                     </a>
-                    <div class="text-post-div">
-                        <%= item.post %>
+                    <div class="user-post-wrapper">
+                        <div class="username"><%= item.username %></div>
+                        <div class="text-post-div">
+                            <%= item.post %>
+                        </div>
                     </div>
                 </div>
                 <form action="/posts/<%= item.id %>?_method=put">

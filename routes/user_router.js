@@ -109,7 +109,8 @@ router.get('/users/:username', ensureLoggedIn, (req, res) => {
         
         const sqlSearchUserPosts = `
             SELECT * FROM posts
-            WHERE user_id = $1;
+            WHERE user_id = $1
+            AND type = 'post';
         `
         db.query(sqlSearchUserPosts, [ searchUser.id ], (err, resultSearchUserPosts) => {
 

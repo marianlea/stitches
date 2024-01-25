@@ -19,8 +19,6 @@ router.post('/posts', ensureLoggedIn, (req, res) => {
     const type = 'post'
     const userId = req.session.userId
 
-    console.log(post);
-
     const sql = `
         INSERT INTO posts
         (post, type, user_id)
@@ -90,8 +88,6 @@ router.post('/posts/:id', ensureLoggedIn, (req, res) => {
             if (err) {
                 console.log(err);
             }
-
-            console.log('reply id added');
             res.redirect(`/posts/${postId}`)
 
         })
@@ -163,9 +159,6 @@ router.get('/posts/:id', ensureLoggedIn, (req, res) => {
                             console.log(err);
                         }
 
-
-                        console.log('hoy',{resultReplies});
-
                         if (resultReplies && typeof resultReplies === 'object'){
                             resultReplies.rows
                             if( resultReplies.rows && resultReplies.rows.length){
@@ -187,9 +180,6 @@ router.get('/posts/:id', ensureLoggedIn, (req, res) => {
 
                             }
                         }
-
-                        console.log({repliesArray});
-
 
                         res.render('post/show', { post: post, userId: userId, user: user, postAuthor: postAuthor, repliesArray: repliesArray })
 
@@ -221,35 +211,66 @@ router.get('/posts/:id/edit', ensureLoggedIn, (req, res) => {
         }
 
         const post = result.rows[0]
-        console.log(post);
         
         res.render('post/post_edit', { post: post } )
     })
 
 })
 
-router.put('/posts/:id', ensureLoggedIn, (req, res) => {
 
+router.put('/posts/:id', ensureLoggedIn, (req, res) => {
+    
     const postId = req.params.id
     const post = req.body.post
     const sql = `
-        UPDATE posts
-        SET
-            post = $1
-        WHERE
-            id = $2;
+    UPDATE posts
+    SET
+    post = $1
+    WHERE
+    id = $2;
     `
-
+    
     db.query(sql, [ post, postId ], (err, result) => {
+        
+        if (err) {
+            console.log(err);
+        }
+        
+        res.redirect(`/posts/${postId}`)
+        
+    })
+    
+})
+
+router.delete('/posts/:id', ensureLoggedIn, (req,res) => {
+    const postId = req.params.id
+    const userId = req.session.userId
+    const sql = `
+        DELETE FROM posts
+        WHERE id = $1;
+    `
+    db.query(sql, [ postId ], (err, result) => {
 
         if (err) {
             console.log(err);
         }
 
-        res.redirect(`/posts/${postId}`)
+        const sqlUser = `
+            SELECT * FROM users
+            WHERE id = $1;
+        `
+        db.query(sqlUser, [ userId ], (err, resultUser) => {
 
+            if (err) {
+                console.log(err);
+            }
+
+            const user = resultUser.rows[0]
+
+            res.redirect(`/${user.username}`)
+
+        })
     })
 
 })
-
 module.exports = router
