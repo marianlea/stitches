@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const expressLayout = require('express-ejs-layouts')
-const port = 8080
+const port = process.env.PORT || 8080
 const db = require('./db')
 const bcrypt = require('bcrypt')
 const session = require('express-session')
@@ -23,7 +23,7 @@ app.use(expressLayout)
 app.use(methodOverride('_method'))
 app.use(requestLogger)
 app.use(session ({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'cookies',
     resave: false,
     saveUninitialized: true
 }))
