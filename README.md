@@ -14,7 +14,7 @@ https://stitches-z160.onrender.com/
 
 ![Landing Page](/public/assets/landing.png)
 
-![Home Page](/public/assets/home.png)
+![Home Page](/public/assets/homepage.png)
 
 ![Profile Page](/public/assets/profile.png)
 
