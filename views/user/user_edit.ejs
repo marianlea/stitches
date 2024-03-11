@@ -1,25 +1,28 @@
 <div class="home-page-div">
 
     <a href="/"><img src="/assets/logo.png" alt="stitch-logo" class="small-logo"></a>
+
+    <div class="user-edit-page">
+        <form action="/<%= user.username %>?_method=put" method="post">
+            
+            <p>
+                <label for="">profile picture</label>
+                <input type="text" name="profile_pic_url" value="<%= user.profile_pic_url %>">
+            </p>
+            <p>
+                <textarea name="description" placeholder="description" maxlength="140" class="description-input"><%= user.description %></textarea>
+            </p>
+            <p>
+                <button class="update-btn">update</button>
+            </p>
+            
+        </form>
+    </div>
     
-    <form action="/<%= user.username %>?_method=put" method="post">
-        
-        <p>
-            <label for="">profile picture</label>
-            <input type="text" name="profile_pic_url" value="<%= user.profile_pic_url %>">
-        </p>
-        <p>
-            <textarea name="description" placeholder="description" maxlength="140" class="description-input"><%= user.description %></textarea>
-        </p>
-        <p>
-            <button class="update-btn">update</button>
-        </p>
-        
-        <nav class="bottom-nav">
-            <a href="/"><img src="/assets/home-icon.png" alt=""></a>
-            <a href="/search"><img src="/assets/search-icon.png" alt=""></a>
-            <a href="/posts/new"><img src="/assets/post-icon.png" alt=""></a>
-            <a href="/<%= user.username %>"><img src="/assets/user-icon.png" alt=""></a>
-        </nav>
-    </form>
+    <nav class="bottom-nav">
+        <a href="/"><img src="/assets/home-icon.png" alt=""></a>
+        <a href="/search"><img src="/assets/search-icon.png" alt=""></a>
+        <a href="/posts/new"><img src="/assets/post-icon.png" alt=""></a>
+        <a href="/<%= user.username %>"><img src="/assets/user-icon.png" alt=""></a>
+    </nav>
 </div>

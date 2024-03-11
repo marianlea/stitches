@@ -3,14 +3,15 @@
         <img src="/assets/logo.png" alt="stitch-logo" class="small-logo">
     </header>
     
-    <aside>
-    
+    <main>
+        <div class="profile-side">
+        
             <p>
                 <img src="<%= user.profile_pic_url %>" alt="<%= user.username %>-profile-picture" class="profile-pic">
             </p>
             <p>
                 <%= user.username %>
-    
+        
             </p>
             <p>
                 <%= user.description %>
@@ -23,34 +24,35 @@
                 following <%= followingCount %>
                 
             </p>
-    
+        
             <p>
                 <a href="/<%= user.username %>/edit" class="edit-profile-link">edit profile</a>
             </p>
-    
+        
             <p>
                 <form action="/logout?_method=delete" method="post">
                     <button class="login">log out</button>
                 </form>
             </p>
     
-        </aside>
+        </div class="profile-side">
     
-    <div class="main">
-    
-        <% for (let post of posts) { %> 
+        <div class="posts">
         
-            <div class="post-div">
-                <%= post.post %>
-                <form action="/posts/<%= post.id %>?_method=put">
-                    <button class="see-post-btn">see post</button>
-                </form>
-            </div>
+            <% for (let post of posts) { %> 
+            
+                <div class="post-div">
+                    <%= post.post %>
+                    <form action="/posts/<%= post.id %>?_method=put">
+                        <button class="see-post-btn">see post</button>
+                    </form>
+                </div>
+            
+            <% } %>
         
-        <% } %>
-    
-    </div>
-    
+        </div>
+    </main>
+
     <nav class="bottom-nav">
         <a href="/"><img src="/assets/home-icon.png" alt=""></a>
         <a href="/search"><img src="/assets/search-icon.png" alt=""></a>

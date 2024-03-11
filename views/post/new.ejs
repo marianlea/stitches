@@ -1,13 +1,16 @@
 <div class="home-page-div">
 
     <img src="/assets/logo.png" class="small-logo">
+
+    <div class="new-post">
+        <form action="/posts" method="post">
+            <div>   
+                <textarea name="post" maxlength="300" class="new-post-input"></textarea>
+            </div>
+            <button class="post-btn">post</button>
+        </form>
+    </div>
     
-    <form action="/posts" method="post">
-        <div>   
-            <textarea name="post" maxlength="300" class="new-post-input"></textarea>
-        </div>
-        <button class="post-btn">post</button>
-    </form>
 
     <nav class="bottom-nav">
         <a href="/"><img src="/assets/home-icon.png" alt=""></a>

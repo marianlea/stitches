@@ -1,55 +1,62 @@
 <div class="home-page-div">
-    <p>
-        <div class="show-post-div">
-            <%= post.post %>
-        </div>
-    </p>
-    
-    
-    <% if (repliesArray && repliesArray.length === 0) { %>
-    
-    <% } else if (repliesArray && repliesArray.length === 1) { %>
-    
-        <p>
-            <%= repliesArray[0].post %>
-        
-        </p>
-    
-    <% } else if (repliesArray && repliesArray.length > 1) { %>
-    
-        <% for (let reply of repliesArray) { %>
-    
-            <p><%= reply.post %></p>
-    
-        <% } %>
-    
-    <% } %>
 
-    
+    <header>
+
+    </header>
+    <div class="show-post-wrapper">
+        <p>
+            <div class="show-post-div">
+                <%= post.post %>
+            </div>
+        </p>
+        
+        
+        <% if (repliesArray && repliesArray.length === 0) { %>
+        
+        <% } else if (repliesArray && repliesArray.length === 1) { %>
+        
+            <p>
+                <%= repliesArray[0].post %>
+            
+            </p>
+        
+        <% } else if (repliesArray && repliesArray.length > 1) { %>
+        
+            <% for (let reply of repliesArray) { %>
+        
+                <p><%= reply.post %></p>
+        
+            <% } %>
+        
+        <% } %>
+
+        
         <form action="/posts/<%= post.id %>" method="post">
             <div>
                 <textarea name="reply" maxlength="300" placeholder="reply to <%= postAuthor.username %>" class="reply-input"></textarea>
             </div>
             <button class="post-btn">post</button>
         </form>
-        
-  
+            
     
-    <% if (userId === post.user_id) { %>
-        <p class="edit-post-p">
-            <a href="/posts/<%= post.id %>/edit" class="edit-post-link">edit post</a>
-        </p>
         
-        <form action="/posts/<%= post.id %>?_method=delete" method="post">
+        <% if (userId === post.user_id) { %>
+            <p class="edit-post-p">
+                <a href="/posts/<%= post.id %>/edit" class="edit-post-link">edit post</a>
+            </p>
+            
+            <form action="/posts/<%= post.id %>?_method=delete" method="post">
 
-            <div>
-                <input type="hidden">
-            </div>
-    
-            <button class="delete-btn">delete</button>
-    
-        </form>
-    <% } %>
+                <div>
+                    <input type="hidden">
+                </div>
+        
+                <button class="delete-btn">delete</button>
+        
+            </form>
+        <% } %>
+
+    </div>
     
     <nav class="bottom-nav">
         <a href="/"><img src="/assets/home-icon.png" alt=""></a>

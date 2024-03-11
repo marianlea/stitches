@@ -1,5 +1,8 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 1px solid salmon;
 }
 
 body {
@@ -10,20 +13,26 @@ body {
 
 .body-wrapper {
     display: flex;
-    justify-content: space-evenly;
-    align-content: center;
+    align-items: center;
     text-align: center;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
     height: 100vh;
 }
 
+.home-page-div {
+    width: 100%;
+}
+
 .home-page-div, .search-results-page-div {
-    margin: auto;
     font-family: 'Inconsolata', monospace;
 }
 
 .logo {
     display: block;
     width: 40rem;
+    margin: auto;
 }
 
 .home-page-div h3 {
@@ -64,16 +73,16 @@ body {
 
 .post-div {
     border-bottom: 1px dotted #b4b4b4;
-    margin: 20px;
-    width: 400px;
     display: flex;
     flex-direction: column;
+    width: 40%;
+    margin: 0 auto;
 }
 
 .profile-pic {
     border-radius: 50%;
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
     border: 1px solid #b4b4b4;
 }
@@ -87,27 +96,22 @@ body {
 }
 
 .user-post-div {
-    text-align: start;
-    padding-left: 20px;
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    width: 100%;
 }
 
 .username {
     display: block;
     color: black;
     font-size: 12px;
+    margin-bottom: 1rem;
 }
 
-.user-post-wrapper {
-    display: grid;
-    grid-template-rows: 1fr 4fr;
-    margin-left: 10px;
-}
-
-.text-post-div {
-    display: block;
+.post-div .user-post-wrapper {
     text-align: left;
+    width: 100%;
+
 }
 
 .see-post-btn, .follow-btn, .post-btn, .update-btn, .delete-btn {
@@ -162,14 +166,16 @@ body {
     border-bottom: 1px dotted #b4b4b4;
 }
 
-aside {
-    position: fixed;
-    top: 30vh;
-    left: 20%;
-}
-
 header {
     margin-top: 70px;
+}
+
+.user-div-wrapper main {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: auto;
+    gap: 3rem
 }
 
 .user-div-wrapper p{
@@ -183,10 +189,11 @@ header {
 
 .reply-input, .edit-post-input, .new-post-input, .description-input {
     height: 40px;
-    width: 400px;
+    width: 100%;
     background-color: transparent;
     border: 1px dotted #b4b4b4;
     margin-bottom: 20px;
+    padding: 10px;
 }
 
 .post-btn, .update-btn, .delete-btn {
@@ -214,9 +221,124 @@ header {
 
 .new-post-input, .description-input {
     height: 70px;
-    width: 600px;
+    width: 100%;
+}
+
+.show-post-wrapper {
+    width: 50%;
+    margin: 0 auto;
 }
 
 .show-post-div {
-    width: 400px;
+    width: 100%;
+}
+
+.post-edit, .new-post, .user-edit-page {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.user-div-wrapper .posts {
+    text-align: left;
+}
+
+.profile-side p {
+    margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+
+    .home-page-div {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        padding: 0;
+    }
+
+    .logo {
+        width: 12rem;
+    }
+
+    .home-page-div h3 {
+        font-size: 12px;
+    }
+
+    .sign-up, .login {
+        margin: 100px 30px;
+        font-size: 12px;
+        text-decoration: none;
+        padding: 3px 10px;
+        box-shadow: 5px 3px 3px rgba(0, 0, 0, 0.1);
+        border: solid 5px rgba(230, 229, 229, 0.873);
+        border-radius: 10px;
+        background-color: rgba(230, 229, 229, 0.873);
+        color: black;
+        font-family: 'Inconsolata', monospace;
+    }
+
+    .home-page-div .session-prompt {
+        font-size: 12px
+    }
+
+    .home-page-div form {
+        margin-top: 2rem;
+    }
+
+    .new-post-input {
+        width: 20rem;
+    }
+
+    .user-div-wrapper {
+        width: 100%;
+    }
+
+    .user-post-div {
+        width: 100wv;
+    }
+
+    .post-div, .new-post {
+        width: 100%
+    }
+
+    .new-post-input {
+        width: 100%;
+    }
+
+    .show-post-wrapper {
+        width: 100%;
+    }
+
+    .small-logo {
+        margin: 0 auto;
+    }
+
+    .user-div-wrapper main {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        margin: auto;
+        gap: 0;
+        font-size: 15px;
+        margin-top: 2rem;
+    }
+
+    .user-div-wrapper .profile-side p {
+        font-size: 12px;
+    }
+
+    .user-div-wrapper button {
+        font-size: 12px;
+    }
+
+    .user-div-wrapper .login {
+        width: 5rem;
+    }
+
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
 }
